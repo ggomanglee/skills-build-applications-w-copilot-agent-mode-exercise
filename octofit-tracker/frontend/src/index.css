@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
 :root {
   --text: #6b6375;
   --text-h: #08060d;
@@ -109,3 +111,12 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+:root { --body-font: 'DM Sans', 'Trebuchet MS', sans-serif; --display-font: 'Space Grotesk', 'Trebuchet MS', sans-serif; --line: #e3e8e2; background: #f4f6f1; color: #33493c; color-scheme: light; font-family: var(--body-font); font-size: 14px; letter-spacing: 0; }
+* { box-sizing: border-box; }
+body { background-color: #f4f6f1; background-image: linear-gradient(rgba(60, 94, 68, .025) 1px, transparent 1px), linear-gradient(90deg, rgba(60, 94, 68, .025) 1px, transparent 1px); background-size: 28px 28px; margin: 0; min-width: 320px; min-height: 100vh; }
+button, input, select { font-family: inherit; }
+button { -webkit-tap-highlight-color: transparent; }
+#root { border: 0; display: block; margin: 0; max-width: none; min-height: 100vh; text-align: left; width: auto; }
+h1, h2 { letter-spacing: 0; }
+::selection { background: #d7ed71; color: #173a32; }
