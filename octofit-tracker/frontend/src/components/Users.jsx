@@ -5,8 +5,13 @@ import PageHeading from './PageHeading.jsx'
 import useApiCollection from '../hooks/useApiCollection.js'
 import { displayName, initials, matchesQuery } from '../lib/format.js'
 
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
+const usersEndpoint = codespaceName && codespaceName !== 'undefined'
+  ? `https://${codespaceName}-8000.app.github.dev/api/users`
+  : 'http://localhost:8000/api/users'
+
 function UsersPage() {
-  const { items, loading, error, reload } = useApiCollection('users')
+  const { items, loading, error, reload } = useApiCollection('users', usersEndpoint)
   const [query, setQuery] = useState('')
   const filtered = items.filter((user) => matchesQuery([displayName(user), user.username, user.email, user.team?.name], query))
 

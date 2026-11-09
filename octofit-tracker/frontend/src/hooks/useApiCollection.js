@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { fetchCollection } from '../lib/api.js'
 
-export default function useApiCollection(collection) {
+export default function useApiCollection(collection, endpoint) {
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -15,7 +15,7 @@ export default function useApiCollection(collection) {
       setError('')
 
       try {
-        const records = await fetchCollection(collection)
+        const records = await fetchCollection(collection, endpoint)
         if (active) setItems(records)
       } catch (requestError) {
         if (active) setError(requestError.message || '요청 중 문제가 발생했습니다.')
@@ -26,7 +26,7 @@ export default function useApiCollection(collection) {
 
     loadCollection()
     return () => { active = false }
-  }, [collection, refreshKey])
+  }, [collection, endpoint, refreshKey])
 
   return { items, loading, error, reload: () => setRefreshKey((key) => key + 1) }
 }

@@ -4,8 +4,13 @@ import PageHeading from './PageHeading.jsx'
 import useApiCollection from '../hooks/useApiCollection.js'
 import { displayName, initials } from '../lib/format.js'
 
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
+const leaderboardEndpoint = codespaceName && codespaceName !== 'undefined'
+  ? `https://${codespaceName}-8000.app.github.dev/api/leaderboard`
+  : 'http://localhost:8000/api/leaderboard'
+
 function Leaderboard() {
-  const { items, loading, error, reload } = useApiCollection('leaderboard')
+  const { items, loading, error, reload } = useApiCollection('leaderboard', leaderboardEndpoint)
   const ranked = [...items].sort((first, second) => first.rank - second.rank)
   const leader = ranked[0]
 

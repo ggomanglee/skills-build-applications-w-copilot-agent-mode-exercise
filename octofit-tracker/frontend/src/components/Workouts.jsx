@@ -7,9 +7,13 @@ import { matchesQuery, titleCase } from '../lib/format.js'
 
 const typeIcons = { running: Footprints, cycling: Bike, strength: Dumbbell, hiking: Footprints, yoga: StretchHorizontal }
 const difficultyLabels = { beginner: '초급', intermediate: '중급', advanced: '고급' }
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
+const workoutsEndpoint = codespaceName && codespaceName !== 'undefined'
+  ? `https://${codespaceName}-8000.app.github.dev/api/workouts`
+  : 'http://localhost:8000/api/workouts'
 
 function Workouts() {
-  const { items, loading, error, reload } = useApiCollection('workouts')
+  const { items, loading, error, reload } = useApiCollection('workouts', workoutsEndpoint)
   const [query, setQuery] = useState('')
   const [difficulty, setDifficulty] = useState('all')
   const filtered = items.filter((workout) => (difficulty === 'all' || workout.difficulty === difficulty) && matchesQuery([workout.name, workout.description, workout.type], query))

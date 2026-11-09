@@ -4,8 +4,13 @@ import PageHeading from './PageHeading.jsx'
 import useApiCollection from '../hooks/useApiCollection.js'
 import { displayName, initials } from '../lib/format.js'
 
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
+const teamsEndpoint = codespaceName && codespaceName !== 'undefined'
+  ? `https://${codespaceName}-8000.app.github.dev/api/teams`
+  : 'http://localhost:8000/api/teams'
+
 function Teams() {
-  const { items, loading, error, reload } = useApiCollection('teams')
+  const { items, loading, error, reload } = useApiCollection('teams', teamsEndpoint)
   const teams = [...items].sort((first, second) => (second.points ?? 0) - (first.points ?? 0))
 
   return <>

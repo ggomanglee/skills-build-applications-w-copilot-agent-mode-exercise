@@ -6,8 +6,13 @@ import PageHeading from './PageHeading.jsx'
 import useApiCollection from '../hooks/useApiCollection.js'
 import { displayName, formatDate, matchesQuery, titleCase } from '../lib/format.js'
 
+const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
+const activitiesEndpoint = codespaceName && codespaceName !== 'undefined'
+  ? `https://${codespaceName}-8000.app.github.dev/api/activities`
+  : 'http://localhost:8000/api/activities'
+
 function Activities() {
-  const { items, loading, error, reload } = useApiCollection('activities')
+  const { items, loading, error, reload } = useApiCollection('activities', activitiesEndpoint)
   const [query, setQuery] = useState('')
   const [type, setType] = useState('all')
   const filtered = items.filter((item) => (type === 'all' || item.type === type) && matchesQuery([displayName(item.user), item.user?.username, item.type], query))

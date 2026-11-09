@@ -6,8 +6,8 @@ const codespaceApiBase = codespaceName && codespaceName !== 'undefined'
 
 export const API_BASE_URL = (configuredApiBase || codespaceApiBase).replace(/\/+$/, '')
 
-export async function fetchCollection(collection) {
-  const response = await fetch(`${API_BASE_URL}/api/${collection}/`, {
+export async function fetchCollection(collection, endpoint = `${API_BASE_URL}/api/${collection}`) {
+  const response = await fetch(`${endpoint.replace(/\/+$/, '')}/`, {
     headers: { Accept: 'application/json' },
   })
 
